@@ -21,10 +21,16 @@ export class EmptyView extends View {
 
   render() {
     return html`
-      <vaadin-message-list class="flex-grow" .items=${this.formattedMessages}></vaadin-message-list>
+      <vaadin-message-list
+        class="flex-grow"
+        .items=${this.formattedMessages}></vaadin-message-list>
       <div class="flex p-s gap-s items-baseline">
-        <vaadin-text-field placeholder="Name" @change=${this.userNameChange}></vaadin-text-field>
-        <vaadin-message-input class="flex-grow" @submit=${this.submit}></vaadin-message-input>
+        <vaadin-text-field
+          placeholder="Name"
+          @change=${this.userNameChange}></vaadin-text-field>
+        <vaadin-message-input
+          class="flex-grow"
+          @submit=${this.submit}></vaadin-message-input>
       </div>
     `;
   }
@@ -43,6 +49,8 @@ export class EmptyView extends View {
   connectedCallback() {
     super.connectedCallback();
     this.classList.add('flex', 'flex-col', 'h-full', 'box-border');
-    ChatEndpoint.join().onNext((message) => (this.messages = [...this.messages, message]));
+    ChatEndpoint.join().onNext(
+      (message) => (this.messages = [...this.messages, message])
+    );
   }
 }
