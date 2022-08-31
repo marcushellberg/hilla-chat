@@ -1,11 +1,12 @@
 import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { View } from '../../views/view';
-import '@vaadin/vaadin-messages';
-import '@vaadin/vaadin-text-field';
+import '@vaadin/message-list';
+import '@vaadin/message-input';
+import '@vaadin/text-field';
 import Message from 'Frontend/generated/com/example/application/ChatEndpoint/Message';
 import { ChatEndpoint } from 'Frontend/generated/endpoints';
-import { TextFieldChangeEvent } from '@vaadin/vaadin-text-field';
+import { TextFieldChangeEvent } from '@vaadin/text-field';
 
 @customElement('empty-view')
 export class EmptyView extends View {
@@ -15,7 +16,7 @@ export class EmptyView extends View {
   get formattedMessages() {
     return this.messages.map((m) => ({
       ...m,
-      time: new Date(m.time).toLocaleTimeString('en-US'),
+      time: m.time ? new Date(m.time).toLocaleTimeString('en-US') : 'unknown',
     }));
   }
 
@@ -32,6 +33,8 @@ export class EmptyView extends View {
           class="flex-grow"
           @submit=${this.submit}></vaadin-message-input>
       </div>
+      
+      ${JSON.stringify(this.messages, null, 2)}
     `;
   }
 
